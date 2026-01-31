@@ -25,7 +25,7 @@ namespace eng
 		Graphics();
 		~Graphics();
 
-		void init(SDL_Renderer* renderer, int windowWidth, int windowHeight);
+		void init(eng::RenderContext& renderContext);
 
 		Color_t createColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255);
 
@@ -39,17 +39,24 @@ namespace eng
 		void drawColorBuffer();
 
 		void drawPixel(int x, int y, Color_t color);
+
+		//---------Primitives------------//
+
 		void drawLine(int x0, int y0, int x1, int y1, Color_t color);
 
 		void drawTriangle(eng::Triangle& triangle, Color_t color);
-
-		void drawFilledRectangle(eng::Rectangle& rect, Color_t color);
-		void drawRectangle(eng::Rectangle& rect, Color_t color);
-		void drawCircle();
-
 		void drawTriangle(int x0, int y0, int x1, int y1, int x2, int y2, Color_t color);
+		
+		void drawFilledRectangle(int x, int y, int width, int height, Color_t color);
+		void drawFilledRectangle(eng::Rectangle& rect, Color_t color);
 
+		void drawRectangle(int x, int y, int width, int height, Color_t color);
+		void drawRectangle(eng::Rectangle& rect, Color_t color);
+
+		void drawCircle();
+		
 		void drawFilledTriangle(eng::Triangle& trig, Color_t color);
+		//--------------------------------//
 
 	private:
 
@@ -57,13 +64,8 @@ namespace eng
 		void fillFlatTopTriangle();
 
 		void ddaLineAlgo(int x0, int y0, int x1, int y1, Color_t color);
-
-		uint32_t* m_colorBuffer;
-		SDL_Renderer* m_renderer;
-		SDL_Texture* m_canvas;
-
-		int m_cwindowWidth;
-		int m_cwindowHeight;
+		
+		eng::RenderContext* m_context;		
 	};
 
 

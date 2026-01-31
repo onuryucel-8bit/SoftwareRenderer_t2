@@ -3,12 +3,12 @@
 namespace eng
 {
 
-Application::Application()
-{
+Application::Application()	
+{	
 	initWindow();
 	f_running = true;
 
-	gp.init(m_renderer, WINDOW_WIDTH, WINDOW_HEIGHT);
+	gp.init(m_context);
 }
 
 Application::~Application()
@@ -38,7 +38,7 @@ void Application::run()
 
 
 		std::string title = std::to_string(1.0f / delta);
-		SDL_SetWindowTitle(m_window, title.c_str());
+		SDL_SetWindowTitle(m_context.window, title.c_str());
 
 		
 
@@ -47,8 +47,8 @@ void Application::run()
 		draw();
 	}
 		
-	SDL_DestroyWindow(m_window);
-	SDL_DestroyRenderer(m_renderer);
+	SDL_DestroyWindow(m_context.window);
+	SDL_DestroyRenderer(m_context.renderer);
 	SDL_Quit();
 	
 }
@@ -61,18 +61,18 @@ void Application::initWindow()
 		return;
 	}
 		
-	if (m_window = SDL_CreateWindow("SDL3 Tutorial: Hello SDL3", WINDOW_WIDTH, WINDOW_HEIGHT, NULL); m_window == nullptr)
+	if (m_context.window = SDL_CreateWindow("Software Renderer", m_context.WindowWidth, m_context.WindowHeight, NULL); m_context.window == nullptr)
 	{
 		SDL_Log("Window could not be created! SDL error: %s\n", SDL_GetError());
 		return;
 	}
 
 	// Create a renderer
-	m_renderer = SDL_CreateRenderer(m_window, nullptr);
-	if (m_renderer == nullptr)
+	m_context.renderer = SDL_CreateRenderer(m_context.window, nullptr);
+	if (m_context.renderer == nullptr)
 	{
 		SDL_Log("Renderer could not be created! SDL error: %s\n", SDL_GetError());
-		SDL_DestroyWindow(m_window);
+		SDL_DestroyWindow(m_context.window);
 		SDL_Quit();
 		return;
 	}
@@ -105,13 +105,13 @@ void Application::update(float dt)
 
 void Application::draw()
 {		
-	SDL_RenderClear(m_renderer);
+	SDL_RenderClear(m_context.renderer);
 	gp.clearColorBuffer(0x2000'9000);
 	
 	//XOR
-	for (size_t y = 0; y < WINDOW_HEIGHT; y++)
+	for (size_t y = 0; y < m_context.WindowHeight; y++)
 	{
-		for (size_t x = 0; x < WINDOW_WIDTH; x++)
+		for (size_t x = 0; x < m_context.WindowWidth; x++)
 		{	
 			Color_t color;
 			color = (x ^ y);

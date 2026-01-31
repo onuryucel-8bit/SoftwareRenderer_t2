@@ -14,8 +14,7 @@
 #include "utils/Timer.h"
 
 namespace eng
-{
-
+{	
 	class Application
 	{
 	public:
@@ -31,15 +30,11 @@ namespace eng
 		void draw();
 		void setup();
 
-		SDL_Window* m_window;
-		SDL_Renderer* m_renderer;
-
 		eng::Graphics gp;
 
 		bool f_running;
 
-		const int WINDOW_WIDTH = 320;
-		const int WINDOW_HEIGHT = 200;
+		eng::RenderContext m_context;
 	};
 
 }
