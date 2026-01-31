@@ -1,7 +1,7 @@
 #pragma once
 
-#include "libsLocal/glm/glm.hpp"
-#include "Defs.h"
+#include "../libsLocal/glm/glm.hpp"
+#include "../Defs.h"
 
 namespace eng
 {
