@@ -2,11 +2,16 @@
 
 #include <cstdint>
 #include <iostream>
+#include <chrono>
 
 #include "SDL3/SDL.h"
 #include "Graphics.h"
+
 #include "Triangle.h"
 #include "Rectangle.h"
+#include "Defs.h"
+
+#include "Timer.h"
 
 namespace eng
 {
@@ -21,20 +26,13 @@ namespace eng
 
 	private:
 		void initWindow();
-		void update();
+		void update(float dt);
 		void input(SDL_Event& event);
 		void draw();
 		void setup();
 
 		SDL_Window* m_window;
 		SDL_Renderer* m_renderer;
-
-		float test_var = 0;
-
-		eng::Triangle a;
-		eng::Triangle b;
-
-		//eng::Rectangle rect;
 
 		eng::Graphics gp;
 

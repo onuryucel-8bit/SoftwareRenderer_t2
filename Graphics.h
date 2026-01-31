@@ -7,7 +7,7 @@
 #include "SDL3/SDL.h"
 #include "Triangle.h"
 #include "Rectangle.h"
-#include "Const.h"
+#include "Defs.h"
 
 namespace eng
 {

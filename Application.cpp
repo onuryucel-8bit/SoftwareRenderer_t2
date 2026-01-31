@@ -21,10 +21,29 @@ void Application::run()
 	
 	SDL_Event event;			
 	
+	using Clock = std::chrono::steady_clock;
+	using TimePoint = Clock::time_point;
+	using Duration = std::chrono::duration<float>;
+
+	TimePoint startTime = Clock::now();
+	TimePoint lastTime = startTime;
+
 	while (f_running)
-	{		
+	{
+
+		TimePoint currentTime = Clock::now();		
+		float delta = Duration(currentTime - lastTime).count();
+		lastTime = currentTime;
+
+
+
+		std::string title = std::to_string(1.0f / delta);
+		SDL_SetWindowTitle(m_window, title.c_str());
+
+		
+
 		input(event);
-		update();
+		update(delta);
 		draw();
 	}
 		
@@ -42,7 +61,7 @@ void Application::initWindow()
 		return;
 	}
 		
-	if (m_window = SDL_CreateWindow("SDL3 Tutorial: Hello SDL3", WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_FULLSCREEN); m_window == nullptr)
+	if (m_window = SDL_CreateWindow("SDL3 Tutorial: Hello SDL3", WINDOW_WIDTH, WINDOW_HEIGHT, NULL); m_window == nullptr)
 	{
 		SDL_Log("Window could not be created! SDL error: %s\n", SDL_GetError());
 		return;
@@ -80,7 +99,7 @@ void Application::input(SDL_Event& event)
 	}
 }
 
-void Application::update()
+void Application::update(float dt)
 {
 }
 
