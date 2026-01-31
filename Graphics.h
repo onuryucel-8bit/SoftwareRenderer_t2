@@ -5,8 +5,8 @@
 #include <iostream>
 
 #include "SDL3/SDL.h"
-#include "Triangle.h"
-#include "Rectangle.h"
+#include "Primitives/Rectangle.h"
+#include "Primitives/Triangle.h"
 #include "Defs.h"
 
 namespace eng

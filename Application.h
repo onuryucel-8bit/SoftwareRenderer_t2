@@ -7,11 +7,11 @@
 #include "SDL3/SDL.h"
 #include "Graphics.h"
 
-#include "Triangle.h"
-#include "Rectangle.h"
+#include "Primitives/Triangle.h"
+#include "Primitives/Rectangle.h"
 #include "Defs.h"
 
-#include "Timer.h"
+#include "utils/Timer.h"
 
 namespace eng
 {
