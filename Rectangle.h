@@ -1,9 +1,12 @@
 #pragma once
 
 #include "libsLocal/glm/glm.hpp"
-
-struct Rectangle
+namespace eng
 {
-	glm::vec2 points[4];
+	struct Rectangle
+	{
+		glm::vec2 position;
 
-};
+		int width, height;
+	};
+}

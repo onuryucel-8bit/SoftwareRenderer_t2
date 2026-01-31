@@ -3,8 +3,10 @@
 #include "libsLocal/glm/glm.hpp"
 #include "Const.h"
 
-struct Triangle
+namespace eng
 {
-	glm::vec2 points[3];
-	Color_t color;
-};
+	struct Triangle
+	{
+		glm::vec2 points[3];		
+	};
+}

@@ -1,5 +1,8 @@
 #include "Application.h"
 
+namespace eng
+{
+
 Application::Application()
 {
 	initWindow();
@@ -84,27 +87,33 @@ void Application::update()
 void Application::draw()
 {		
 	SDL_RenderClear(m_renderer);
-	gp.clearColorBuffer(0x2000'6000);
+	gp.clearColorBuffer(0x2000'9000);
 	
-	//gp.drawGrid(16, 16, Color::Blue);
-	//gp.drawDots(0, 0, Color::Blue);
+	//XOR
+	for (size_t y = 0; y < WINDOW_HEIGHT; y++)
+	{
+		for (size_t x = 0; x < WINDOW_WIDTH; x++)
+		{	
+			Color_t color;
+			color = (x ^ y);
+			color = gp.createColor(color , color, color);
 
-	//gp.drawLine(0, 0, 180, 180, Color::Red);
-	//gp.drawTriangle(100, 10, 50, 150, 150, 150, Color::Red);	
-	gp.drawRectangle(rect, Color::Red);
-	gp.drawColorBuffer();
-	// Present the rendered frame
-	
+			gp.drawPixel(x, y, color);
+		}
+	}
+
+	gp.drawColorBuffer();	
 }
 
 void Application::setup()
 {	
-	rect.points[0].x = 10;
-	rect.points[0].y = 10;
-	rect.points[1].x = 100;
-	rect.points[1].y = 10;
-	rect.points[2].x = 100;
-	rect.points[2].y = 100;
-	rect.points[3].x = 10;
-	rect.points[3].y = 100;
+	/*
+	rect.position.x = 60;
+	rect.position.y = 70;
+	rect.width = 30;
+	rect.height = 20;
+	*/
+
+}
+
 }

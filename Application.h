@@ -8,34 +8,40 @@
 #include "Triangle.h"
 #include "Rectangle.h"
 
-class Application
+namespace eng
 {
-public:
-	Application();
-	~Application();
 
-	void run();
+	class Application
+	{
+	public:
+		Application();
+		~Application();
 
-private:
-	void initWindow();
-	void update();
-	void input(SDL_Event& event);
-	void draw();
-	void setup();
-	
-	SDL_Window* m_window;
-	SDL_Renderer* m_renderer;
+		void run();
 
-	Triangle a;
-	Triangle b;
+	private:
+		void initWindow();
+		void update();
+		void input(SDL_Event& event);
+		void draw();
+		void setup();
 
-	Rectangle rect;
-	
-	Graphics gp;
+		SDL_Window* m_window;
+		SDL_Renderer* m_renderer;
 
-	bool f_running;
+		float test_var = 0;
 
-	const int WINDOW_WIDTH = 320;
-	const int WINDOW_HEIGHT = 200;
-};
+		eng::Triangle a;
+		eng::Triangle b;
 
+		//eng::Rectangle rect;
+
+		eng::Graphics gp;
+
+		bool f_running;
+
+		const int WINDOW_WIDTH = 320;
+		const int WINDOW_HEIGHT = 200;
+	};
+
+}
