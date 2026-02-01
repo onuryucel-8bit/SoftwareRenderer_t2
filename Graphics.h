@@ -53,7 +53,7 @@ namespace eng
 		void drawRectangle(int x, int y, int width, int height, Color_t color);
 		void drawRectangle(eng::Rectangle& rect, Color_t color);
 
-		void drawCircle();
+		void drawCircle(int cx, int cy, int radius, Color_t color);
 		
 		void drawFilledTriangle(eng::Triangle& trig, Color_t color);
 		//--------------------------------//

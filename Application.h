@@ -30,6 +30,11 @@ namespace eng
 		void draw();
 		void setup();
 
+		float test_varx = 0.0f;
+		float test_vary = 0.0f;
+		float t = 0.0f;
+		Color_t test_color;
+
 		eng::Graphics gp;
 
 		bool f_running;

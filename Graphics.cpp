@@ -56,35 +56,35 @@ namespace eng
 
 	void Graphics::drawGrid(size_t gx, size_t gy, Color_t Color)
 	{
-		/*for (size_t y = 0; y < m_cwindowHeight; y++)
+		for (size_t y = 0; y < m_context->WindowHeight; y++)
 		{
-			for (size_t x = 0; x < m_cwindowWidth; x++)
+			for (size_t x = 0; x < m_context->WindowWidth; x++)
 			{
 				if (x % gx == 0 || y % gy == 0)
 				{
 					drawPixel(x, y, Color);
 				}
 			}
-		}*/
+		}
 	}
 
 	void Graphics::drawDots(size_t gx, size_t gy, Color_t Color)
 	{
-		/*for (size_t y = 0; y < m_cwindowHeight; y += 40)
+		for (size_t y = 0; y < m_context->WindowHeight; y += 40)
 		{
-			for (size_t x = 0; x < m_cwindowWidth; x += 40)
+			for (size_t x = 0; x < m_context->WindowWidth; x += 40)
 			{
 				drawPixel(x, y, Color);
 			}
-		}*/
+		}
 	}
 
 	void Graphics::clearColorBuffer(Color_t color)
 	{
-		/*for (size_t i = 0; i < m_cwindowWidth * m_cwindowHeight; i++)
+		for (size_t i = 0; i < m_context->WindowWidth * m_context->WindowHeight; i++)
 		{
-			m_colorBuffer[i] = color;
-		}*/
+			m_context->colorBuffer[i] = color;
+		}
 	}
 
 	void Graphics::drawColorBuffer()
@@ -220,8 +220,31 @@ namespace eng
 
 	}
 
-	void Graphics::drawCircle()
+	void Graphics::drawCircle(int cx, int cy, int radius, Color_t color)
 	{
+		float x = 0;
+		float y = -radius;
+	
+		while (x < -y)
+		{
+			float ymid = 0.5 + y;
+
+			if (x * x + ymid * ymid > radius * radius)
+			{
+				y += 1;
+			}
+
+			drawPixel(cx + x, cy + y, color);
+			drawPixel(cx - x, cy + y, color);
+			drawPixel(cx + x, cy - y, color);
+			drawPixel(cx - x, cy - y, color);
+			drawPixel(cx + y, cy + x, color);
+			drawPixel(cx + y, cy - x, color);
+			drawPixel(cx - y, cy + x, color);
+			drawPixel(cx - y, cy - x, color);
+
+			x += 1;
+		}
 	}
 
 	void Graphics::drawTriangle(int x0, int y0, int x1, int y1, int x2, int y2, Color_t color)
