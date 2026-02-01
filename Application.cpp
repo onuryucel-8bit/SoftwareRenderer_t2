@@ -11,8 +11,8 @@ Application::Application()
 	gp.init(m_context);
 
 	m_camera.x = 0;
-	m_camera.y = 0;
-	m_camera.z = -3.0f;
+	m_camera.y = 0.0f;
+	m_camera.z = -7.0f;
 }
 
 Application::~Application()
@@ -50,23 +50,9 @@ void Application::initWindow()
 
 }
 
-void Application::transform(glm::vec4* transformedVertices_ret, glm::mat4x4 worldMatrix)
+void Application::transform(glm::vec4 transformedVertices_ret, glm::mat4x4 worldMatrix)
 {
-	glm::vec4 transformedVertices[3];
-	for (size_t j = 0; j < 3; j++)
-	{
-		vec4f transformVertex = vec4_createFromVec3(faceVertices[j]);
-
-		transformVertex = mat4x4_multVec4(worldMatrix, transformVertex);
-
-		transformVertex.z += 5;
-
-		transformedVertices[j] = transformVertex;
-	}
-
-	transformedVertices_ret[0] = transformedVertices[0];
-	transformedVertices_ret[1] = transformedVertices[1];
-	transformedVertices_ret[2] = transformedVertices[2];
+	
 }
 
 void Application::run()
@@ -136,12 +122,20 @@ void Application::update(float dt)
 		//move the camera
 		point.z -= m_camera.z;
 
+		//TODO coordinate system of teapot is weird..
+		//point.x *= -1;
+		
+		//Rotate the teapot
+		point.y *= -1;
+
 		//project points on 2d screen
 		glm::vec2 projectedPoint = perspectiveProject(point);
 
 		//move projectedPoint to center
-		projectedPoint.x += m_context.WindowWidth * t;
-		projectedPoint.y += m_context.WindowHeight * t;
+		projectedPoint.x += m_context.WindowWidth * 0.5;
+		projectedPoint.y += m_context.WindowHeight * 0.5;
+
+		//std::cout << "posx:" << projectedPoint.x << "\n";
 
 		//insert in list
 		m_projectedVertexs.push_back(projectedPoint);
@@ -203,14 +197,17 @@ void Application::setup()
 	*/
 
 
-	m_vertices.push_back({ -1,  1,  1 });
+	/*m_vertices.push_back({ -1,  1,  1 });
 	m_vertices.push_back({ -1, -1,  1 });
 	m_vertices.push_back({  1, -1,  1 });
 	m_vertices.push_back({  1,  1,  1 });
 	m_vertices.push_back({ -1,  1,  3 });
 	m_vertices.push_back({ -1, -1,  3 });
 	m_vertices.push_back({ 1, -1,  3 });
-	m_vertices.push_back({ 1, 1,  3 });
+	m_vertices.push_back({ 1, 1,  3 });*/
+
+    //m_vertices = objReader.read("assets/ch.obj");
+	m_vertices = objReader.read("assets/holyTEAPOT.obj");
 
 }
 

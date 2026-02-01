@@ -12,6 +12,7 @@
 #include "Primitives/Rectangle.h"
 #include "Defs.h"
 
+#include "utils/ObjReader.h"
 #include "utils/Timer.h"
 
 namespace eng
@@ -24,14 +25,16 @@ namespace eng
 
 		void run();
 
-	private:
-		glm::vec2 perspectiveProject(glm::vec3& vec);
-
+	private:		
 		void initWindow();
 		void update(float dt);
 		void input(SDL_Event& event);
 		void draw();
 		void setup();
+
+		
+		glm::vec2 perspectiveProject(glm::vec3& vec);
+		void transform(glm::vec4 transformedVertices_ret, glm::mat4x4 worldMatrix);
 
 		float test_varx = 0.0f;
 		float test_vary = 0.0f;
@@ -45,6 +48,7 @@ namespace eng
 		std::vector<glm::vec2> m_projectedVertexs;
 
 		eng::Graphics gp;
+		eng::ObjReader objReader;
 
 		bool f_running;
 
