@@ -14,7 +14,7 @@ namespace eng
 		eng::Color_t* colorBuffer;
 
 		//TODO make it resizable
-		const int WindowWidth = 320;
-		const int WindowHeight = 200;
+		const int WindowWidth = 1600;
+		const int WindowHeight = 800;
 	};
 }

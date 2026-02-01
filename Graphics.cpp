@@ -80,7 +80,7 @@ namespace eng
 	}
 
 	void Graphics::clearColorBuffer(Color_t color)
-	{
+	{		
 		for (size_t i = 0; i < m_context->WindowWidth * m_context->WindowHeight; i++)
 		{
 			m_context->colorBuffer[i] = color;
@@ -267,11 +267,25 @@ namespace eng
 	{
 	}
 
+	void Graphics::bresenhamsLineAlgo(int x0, int y0, int x1, int y1, Color_t color)
+	{
+		int dx = x1 - x0;
+		int dy = y1 - y0;
+		float m = dy / dx;
+	}
+
 	void Graphics::ddaLineAlgo(int x0, int y0, int x1, int y1, Color_t color)
 	{
 		int deltaX = x1 - x0;
 		int deltaY = y1 - y0;
 
+		/*		
+			if |deltaX| >= |deltaY|
+				sideLength = |deltaX|
+
+			else
+				sideLength = |deltaY|		
+		*/
 		int sideLength = abs(deltaX) >= abs(deltaY) ? abs(deltaX) : abs(deltaY);
 
 		float incX = deltaX / (float)sideLength;

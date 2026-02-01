@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <iostream>
 #include <chrono>
+#include <vector>
 
 #include "SDL3/SDL.h"
 #include "Graphics.h"
@@ -24,6 +25,8 @@ namespace eng
 		void run();
 
 	private:
+		glm::vec2 perspectiveProject(glm::vec3& vec);
+
 		void initWindow();
 		void update(float dt);
 		void input(SDL_Event& event);
@@ -34,6 +37,12 @@ namespace eng
 		float test_vary = 0.0f;
 		float t = 0.0f;
 		Color_t test_color;
+		float FOV = 640;
+
+		glm::vec3 m_camera;
+
+		std::vector<glm::vec3> m_vertices;
+		std::vector<glm::vec2> m_projectedVertexs;
 
 		eng::Graphics gp;
 

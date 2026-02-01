@@ -9,10 +9,19 @@ Application::Application()
 	f_running = true;
 
 	gp.init(m_context);
+
+	m_camera.x = 0;
+	m_camera.y = 0;
+	m_camera.z = -3.0f;
 }
 
 Application::~Application()
 {
+}
+
+glm::vec2 Application::perspectiveProject(glm::vec3& vec)
+{
+	return glm::vec2((FOV * vec.x) / vec.z, (FOV * vec.y) / vec.z);
 }
 
 void Application::initWindow()
@@ -39,6 +48,25 @@ void Application::initWindow()
 		return;
 	}
 
+}
+
+void Application::transform(glm::vec4* transformedVertices_ret, glm::mat4x4 worldMatrix)
+{
+	glm::vec4 transformedVertices[3];
+	for (size_t j = 0; j < 3; j++)
+	{
+		vec4f transformVertex = vec4_createFromVec3(faceVertices[j]);
+
+		transformVertex = mat4x4_multVec4(worldMatrix, transformVertex);
+
+		transformVertex.z += 5;
+
+		transformedVertices[j] = transformVertex;
+	}
+
+	transformedVertices_ret[0] = transformedVertices[0];
+	transformedVertices_ret[1] = transformedVertices[1];
+	transformedVertices_ret[2] = transformedVertices[2];
 }
 
 void Application::run()
@@ -78,7 +106,6 @@ void Application::run()
 	
 }
 
-
 void Application::input(SDL_Event& event)
 {
 	while (SDL_PollEvent(&event))
@@ -100,31 +127,45 @@ void Application::input(SDL_Event& event)
 
 void Application::update(float dt)
 {	
-	float cx = m_context.WindowWidth * 0.5f;
-	float cy = m_context.WindowHeight * 0.5f;
+	t += 0.07f * dt;
 
-	float r = 100.0f;
+	for (size_t i = 0; i < m_vertices.size(); i++)
+	{
+		glm::vec3 point = m_vertices[i];
 
-	test_varx = cx + cos(t) * r;
-	test_vary = cy + sin(t) * r;
+		//move the camera
+		point.z -= m_camera.z;
 
-	t += dt * 5;
+		//project points on 2d screen
+		glm::vec2 projectedPoint = perspectiveProject(point);
 
-	test_color += 0x0000'0005;
+		//move projectedPoint to center
+		projectedPoint.x += m_context.WindowWidth * t;
+		projectedPoint.y += m_context.WindowHeight * t;
 
-	
+		//insert in list
+		m_projectedVertexs.push_back(projectedPoint);
+	}
+
 }
 
 void Application::draw()
 {		
 	SDL_RenderClear(m_context.renderer);
+
 	gp.clearColorBuffer(0xff00'0f00);
-	
-	//gp.drawLine(m_context.WindowWidth / 2, m_context.WindowHeight / 2, test_varx, test_vary, test_color);
 
-	gp.drawFilledRectangle(10, 10, 60, 32, Color::Blue);
+	//draw vertexs
+	for (auto const& point : m_projectedVertexs)
+	{
+		gp.drawFilledRectangle((int)point.x, (int)point.y, 4, 4, Color::Blue);
+	}
+		
+	gp.drawColorBuffer();
 
-	gp.drawColorBuffer();	
+	//TODO 
+	m_projectedVertexs.clear();
+
 }
 
 void Application::setup()
@@ -133,6 +174,44 @@ void Application::setup()
 	test_vary = m_context.WindowHeight / 2 + 10;
 	t = 0.0f;
 	test_color = 0xff00'0000;
+
+	
+	//little "cubes"
+	/*for (float x = -1; x <= 1; x += 0.25f)
+	{
+		for (float y = -1; y <= 1; y += 0.25f)
+		{
+			for (float z = -1; z <= 1; z += 0.25f)
+			{
+				m_vertices.push_back({ x, y, z});
+			}
+		}
+	}*/
+
+	/*			
+		   *--------------*		                 
+		  /				 /|
+		 /				/ |
+		*--------------*  |
+		|			   |  |
+		|			   |  |
+		|			   |  |
+		|			   |  *
+		|			   | / 
+		|			   |/
+		*--------------*			
+	*/
+
+
+	m_vertices.push_back({ -1,  1,  1 });
+	m_vertices.push_back({ -1, -1,  1 });
+	m_vertices.push_back({  1, -1,  1 });
+	m_vertices.push_back({  1,  1,  1 });
+	m_vertices.push_back({ -1,  1,  3 });
+	m_vertices.push_back({ -1, -1,  3 });
+	m_vertices.push_back({ 1, -1,  3 });
+	m_vertices.push_back({ 1, 1,  3 });
+
 }
 
 }

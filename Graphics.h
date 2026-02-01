@@ -53,6 +53,9 @@ namespace eng
 		void drawRectangle(int x, int y, int width, int height, Color_t color);
 		void drawRectangle(eng::Rectangle& rect, Color_t color);
 
+		//TODO remove float part
+		//https://www.youtube.com/watch?v=hpiILbMkF9w
+
 		void drawCircle(int cx, int cy, int radius, Color_t color);
 		
 		void drawFilledTriangle(eng::Triangle& trig, Color_t color);
@@ -63,6 +66,7 @@ namespace eng
 		void fillFlatBottomTriangle();
 		void fillFlatTopTriangle();
 
+		void bresenhamsLineAlgo(int x0, int y0, int x1, int y1, Color_t color);
 		void ddaLineAlgo(int x0, int y0, int x1, int y1, Color_t color);
 		
 		eng::RenderContext* m_context;		
