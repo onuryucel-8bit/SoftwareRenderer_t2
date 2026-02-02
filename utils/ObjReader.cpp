@@ -34,6 +34,17 @@ namespace eng
 
                     vertexList.push_back(vertex);
                 }
+                //face
+                else if (line.starts_with("f "))
+                {
+                    std::istringstream iss(line);
+
+                    char f;
+                    glm::vec3 face;
+
+                    iss >> f >> face.x >> face.y >> face.z;
+                    vertexList.push_back(face);
+                }
                 
             }
         }

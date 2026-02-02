@@ -152,7 +152,7 @@ void Application::draw()
 	//draw vertexs
 	for (auto const& point : m_projectedVertexs)
 	{
-		gp.drawFilledRectangle((int)point.x, (int)point.y, 4, 4, Color::Blue);
+		gp.drawFilledRectangle((int)point.x, (int)point.y, 4, 4, Color::Blue);				
 	}
 		
 	gp.drawColorBuffer();

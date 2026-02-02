@@ -107,6 +107,7 @@ StyleCopReport.xml
 *.ilk
 *.meta
 *.obj
+!assets/**/*.obj
 *.idb
 *.iobj
 *.pch
